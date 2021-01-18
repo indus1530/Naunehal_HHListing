@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TPVICS Linelisting</string>
+    <string name="app_name">NAUNEHAL Linelisting</string>
     <string name="hh02"> کلسٹر کوڈ  </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
     <string name="hh04"> تعمیراتی ساخت </string>
@@ -21,7 +21,7 @@
     <string name="hh09"> موبائل نمبر </string>
     <string name="hh10a"> تعداد </string>
     <string name="hh10"> کیا اس گھر میں 5 سال سے کم عمر کے بچے ہیں؟ </string>
-    <string name="hh12"> کیا اس گھر میں 12 سے 23 مہینے کی عمر کے بچے ہیں؟ </string>
+    <string name="hh12">" کیا اس گھر میں 35 یا اس سے کم مہینے کے عمر کے بچے ہیں؟ "</string>
     <string name="hh16"> افراد کی تعداد </string>
     <string name="hh17"> کیا اس گھر میں مذید کوئی خاندان رہائش پزیر ہے </string>
     <string name="hh14"> کیا یہ جگہ رہائشی مقاصد کے لئے استعمال کی جا رہی ہے؟ </string>
