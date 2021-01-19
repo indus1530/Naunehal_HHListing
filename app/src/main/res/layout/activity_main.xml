@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="70"
                     android:hint="@string/cluster_number"
-                    android:maxLength="9" />
+                    android:maxLength="6" />
 
                 <ImageButton
                     android:id="@+id/btnCheckPSU"
@@ -114,6 +114,7 @@
             <!-- District  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/na101bcv"
+                android:visibility="gone"
                 style="@style/cardView">
 
                 <LinearLayout style="@style/hlinearlayout">
