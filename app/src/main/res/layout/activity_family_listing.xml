@@ -169,7 +169,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/hh12cv"
                     style="@style/cardView"
-                    android:visibility="@{hh10a.checked ? View.VISIBLE : View.GONE}">
+                    android:visibility="gone">
 
                     <LinearLayout style="@style/vlinearlayout">
 
@@ -242,17 +242,6 @@
                                 android:text="@string/no" />
 
                         </RadioGroup>
-
-                        <com.edittextpicker.aliazaz.EditTextPicker
-                            android:id="@+id/hh15"
-                            style="@style/EditTextNum"
-                            android:hint="@string/qty"
-                            android:maxLength="2"
-                            android:text='@{hh14a.checked ? hh13.getText().toString() : ""}'
-                            android:visibility="@{hh14a.checked ? View.VISIBLE : View.GONE}"
-                            app:maxValue="0"
-                            app:minValue="1"
-                            app:type="range" />
 
                     </LinearLayout>
 

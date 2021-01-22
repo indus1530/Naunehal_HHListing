@@ -23,7 +23,6 @@ import edu.aku.hassannaqvi.naunehal_hhlisting_app.R;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.activities.menu.MenuActivity;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.contracts.ListingContract;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.DatabaseHelper;
-import edu.aku.hassannaqvi.naunehal_hhlisting_app.otherClasses.randomListAdapter;
 
 public class RandomizationActivity extends MenuActivity {
 
@@ -32,7 +31,7 @@ public class RandomizationActivity extends MenuActivity {
     Collection<ListingContract> listingCollection;
     @BindView(R.id.lstClusters)
     RecyclerView lstClusters;
-    randomListAdapter randomListAdapter;
+//    randomListAdapter randomListAdapter;
     DatabaseHelper db;
     ArrayList<ListingContract> listingDataList;
 
@@ -51,7 +50,7 @@ public class RandomizationActivity extends MenuActivity {
 
         new ApplicationsTask(this).execute();
 
-        lstClusters.addOnItemTouchListener(
+        /*lstClusters.addOnItemTouchListener(
                 new randomListAdapter.RecyclerItemClickListener(getApplicationContext(), new randomListAdapter.RecyclerItemClickListener.OnItemClickListener() {
                     Boolean delFlag = true;
 
@@ -101,7 +100,7 @@ public class RandomizationActivity extends MenuActivity {
                         }
                     }
                 })
-        );
+        );*/
     }
 
     public class ApplicationsTask extends AsyncTask<String, Void, Boolean> {
@@ -121,7 +120,7 @@ public class RandomizationActivity extends MenuActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
 
-            lstClusters.setAdapter(randomListAdapter);
+//            lstClusters.setAdapter(randomListAdapter);
 
             if (dialog.isShowing()) {
                 dialog.dismiss();
@@ -141,7 +140,7 @@ public class RandomizationActivity extends MenuActivity {
                     lstList.add(lst);
                 }
 
-                randomListAdapter = new randomListAdapter(context, lstList);
+//                randomListAdapter = new randomListAdapter(context, lstList);
 
                 return true;
             } catch (Exception e) {

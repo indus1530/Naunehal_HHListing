@@ -97,7 +97,6 @@ public class FamilyListingActivity extends AppCompatActivity {
         lc.setHh12(bi.hh12a.isChecked() ? "1" : bi.hh12b.isChecked() ? "2" : "-1");
         lc.setHh13(bi.hh13.getText().toString().isEmpty() ? "-1" : bi.hh13.getText().toString());
         lc.setHh14(bi.hh14a.isChecked() ? "1" : bi.hh14b.isChecked() ? "2" : "-1");
-        lc.setHh15(bi.hh15.getText().toString().isEmpty() ? "-1" : bi.hh15.getText().toString());
 
         lc.setDelHH(bi.delHH.isChecked() ? "1" : "-1");
         lc.setIsNewHH(bi.isNewHH.isChecked() ? "1" : "2");
