@@ -145,19 +145,19 @@
 
                             <TextView
                                 style="@style/i_textview"
-                                android:text="@string/hh14" />
+                                android:text="@string/hh08a" />
 
                             <RadioGroup
-                                android:id="@+id/hh14"
+                                android:id="@+id/hh08a1"
                                 style="@style/radiogroup">
 
                                 <RadioButton
-                                    android:id="@+id/hh14a"
+                                    android:id="@+id/hh08a1a"
                                     style="@style/radiobutton"
                                     android:text="@string/yes" />
 
                                 <RadioButton
-                                    android:id="@+id/hh14b"
+                                    android:id="@+id/hh08a1b"
                                     style="@style/radiobutton"
                                     android:text="@string/no" />
 

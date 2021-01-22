@@ -54,6 +54,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ui.FamilyListingActivity"
+            android:label="Family Information"
             android:screenOrientation="portrait" />
         <activity
             android:name=".core.AndroidDatabaseManager"

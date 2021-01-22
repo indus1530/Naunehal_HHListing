@@ -47,6 +47,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String PROJECT_NAME = "naunehal-hhl";
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
     public static final String FOLDER_NAME = "DMU-NAUNEHAL_HHL";
+    private static final int DATABASE_VERSION = 1;
+    public static String TAG = "DatabaseHelper";
+    public static String DB_FORM_ID;
+
     public static final String SQL_CREATE_BL_RANDOM = "CREATE TABLE " + singleRandomHH.TABLE_NAME + "("
             + singleRandomHH.COLUMN_ID + "  INTEGER PRIMARY KEY AUTOINCREMENT,"
             + singleRandomHH.COLUMN_CLUSTER_BLOCK_CODE + " TEXT,"
@@ -57,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + singleRandomHH.COLUMN_CONTACT + " TEXT,"
             + singleRandomHH.COLUMN_HH_SELECTED_STRUCT + " TEXT,"
             + singleRandomHH.COLUMN_RANDOMDT + " TEXT );";
+
     public static final String SQL_CREATE_SIGNUP = "CREATE TABLE " + SignUpTable.TABLE_NAME + "("
             + SignUpTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + SignUpTable.FULLNAME + " TEXT,"
@@ -69,11 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + SignUpTable.COLUMN_SYNCED + " TEXT, "
             + SignUpTable.COLUMN_SYNCED_DATE + " TEXT " +
             ");";
-    // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 2;
-    public static String TAG = "DatabaseHelper";
-    public static String DB_FORM_ID;
-    // Create a table to hold Listings.
+
     final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
             ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ListingEntry.COLUMN_NAME_UID + " TEXT, " +
@@ -90,18 +91,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
-            ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
-            ListingEntry.COLUMN_NAME_HH08A1 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH08A + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
-            ListingEntry.COLUMN_NAME_HH09A1 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_DELHH + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH15 + " TEXT, " +
-            ListingEntry.COLUMN_NAME_HH16 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_TABNO + " TEXT, " +
             ListingEntry.COLUMN_ADDRESS + " TEXT, " +
             ListingEntry.COLUMN_ISNEWHH + " TEXT, " +
             ListingEntry.COLUMN_COUNTER + " TEXT, " +
@@ -114,34 +114,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_APPVER + " TEXT, " +
             ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
             ListingEntry.COLUMN_NAME_GPSAltitude + " TEXT, " +
-            ListingEntry.COLUMN_RANDOMIZED + " TEXT, " +
             ListingEntry.COLUMN_SYNCED + " TEXT, " +
             ListingEntry.COLUMN_SYNCED_DATE + " TEXT );";
+
     final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + SingleTaluka.TABLE_NAME + " (" +
             SingleTaluka._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             SingleTaluka.COLUMN_TEAM_NO + " TEXT " + ");";
+
     final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + EnumBlockTable.TABLE_NAME + " (" +
             EnumBlockTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             EnumBlockTable.COLUMN_DIST_ID + " TEXT, " +
             EnumBlockTable.COLUMN_GEO_AREA + " TEXT, " +
             EnumBlockTable.COLUMN_CLUSTER_AREA + " TEXT );";
+
     final String SQL_CREATE_VERTICES_TABLE = "CREATE TABLE " + SingleVertices.TABLE_NAME + " (" +
             SingleVertices._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             SingleVertices.COLUMN_CLUSTER_CODE + " TEXT," +
             SingleVertices.COLUMN_POLY_LAT + " TEXT, " +
             SingleVertices.COLUMN_POLY_LANG + " TEXT, " +
             SingleVertices.COLUMN_POLY_SEQ + " TEXT );";
-    final String SQL_COUNT_LISTINGS = "SELECT count(*) as ttlisting from " + ListingEntry.TABLE_NAME;
+
     final String SQL_CREATE_VERSIONAPP = "CREATE TABLE " + VersionAppTable.TABLE_NAME + " (" +
             VersionAppTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             VersionAppTable.COLUMN_VERSION_CODE + " TEXT, " +
             VersionAppTable.COLUMN_VERSION_NAME + " TEXT, " +
             VersionAppTable.COLUMN_PATH_NAME + " TEXT );";
+
     final String SQL_CREATE_USERS = "CREATE TABLE " + UsersTable.TABLE_NAME + "("
             + UsersTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + UsersTable.ROW_USERNAME + " TEXT,"
             + UsersTable.ROW_PASSWORD + " TEXT,"
             + UsersTable.DIST_ID + " TEXT );";
+
     final String SQL_CREATE_DISTRICTS = "CREATE TABLE " + DistrictTable.TABLE_NAME + "("
             + DistrictTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + DistrictTable.COLUMN_DIST_ID + " TEXT,"
@@ -182,7 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int getListingCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(SQL_COUNT_LISTINGS, null);
+        Cursor cursor = db.rawQuery("SELECT count(*) as ttlisting from " + ListingEntry.TABLE_NAME, null);
         int count = 0;
 
         while (cursor.moveToNext()) {
@@ -262,18 +266,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_HH08A1, lc.getHh08a1());
-        values.put(ListingEntry.COLUMN_NAME_HH09A1, lc.getHh09a1());
+        values.put(ListingEntry.COLUMN_NAME_HH08A, lc.getHh08a());
+        values.put(ListingEntry.COLUMN_NAME_DELHH, lc.getDelHH());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
         values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH15, lc.getHh15());
-        values.put(ListingEntry.COLUMN_NAME_HH16, lc.getHh16());
+        values.put(ListingEntry.COLUMN_NAME_TABNO, lc.getTabNo());
         values.put(ListingEntry.COLUMN_ISNEWHH, lc.getIsNewHH());
         values.put(ListingEntry.COLUMN_ADDRESS, lc.getHhadd());
         values.put(ListingEntry.COLUMN_COUNTER, lc.getCounter());
@@ -285,7 +288,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_GPSAltitude, lc.getGPSAlt());
         values.put(ListingEntry.COLUMN_APPVER, lc.getAppVer());
-        values.put(ListingEntry.COLUMN_RANDOMIZED, lc.getIsRandom());
         values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
         long newRowId;
@@ -346,7 +348,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 // New value for one column
         ContentValues values = new ContentValues();
-        values.put(ListingEntry.COLUMN_RANDOMIZED, "1");
 
 // Which row to update, based on the title
         String where = ListingEntry.COLUMN_NAME_CLUSTERCODE + " = ?";
@@ -359,136 +360,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 whereArgs);
     }
 
-    public JSONArray getAllListingsJSON() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = null;
-        String[] columns = {
-                ListingEntry._ID,
-                ListingEntry.COLUMN_NAME_UID,
-                ListingEntry.COLUMN_NAME_HHDATETIME,
-                ListingEntry.COLUMN_NAME_ENUMCODE,
-                ListingEntry.COLUMN_NAME_CLUSTERCODE,
-                ListingEntry.COLUMN_NAME_ENUMSTR,
-                ListingEntry.COLUMN_NAME_HH01,
-                ListingEntry.COLUMN_NAME_HH02,
-                ListingEntry.COLUMN_NAME_HH03,
-                ListingEntry.COLUMN_NAME_HH04,
-                ListingEntry.COLUMN_NAME_HH04OTHER,
-                ListingEntry.COLUMN_NAME_HH05,
-                ListingEntry.COLUMN_NAME_HH06,
-                ListingEntry.COLUMN_NAME_HH07,
-                ListingEntry.COLUMN_NAME_HH07n,
-                ListingEntry.COLUMN_NAME_HH08,
-                ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH08A1,
-                ListingEntry.COLUMN_NAME_HH09A1,
-                ListingEntry.COLUMN_NAME_HH10,
-                ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_HH14,
-                ListingEntry.COLUMN_NAME_HH15,
-                ListingEntry.COLUMN_NAME_HH16,
-                ListingEntry.COLUMN_ADDRESS,
-                ListingEntry.COLUMN_ISNEWHH,
-                ListingEntry.COLUMN_COUNTER,
-                ListingEntry.COLUMN_USERNAME,
-                ListingEntry.COLUMN_NAME_DEVICEID,
-                ListingEntry.COLUMN_TAGID,
-                ListingEntry.COLUMN_NAME_GPSLat,
-                ListingEntry.COLUMN_NAME_GPSLng,
-                ListingEntry.COLUMN_NAME_GPSTime,
-                ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_GPSAltitude,
-                ListingEntry.COLUMN_APPVER,
-                ListingEntry.COLUMN_RANDOMIZED
-        };
-
-        String whereClause = null;
-        String[] whereArgs = null;
-        String groupBy = null;
-        String having = null;
-
-        String orderBy =
-                ListingEntry.COLUMN_NAME_CLUSTERCODE + " ASC";
-
-        Collection<ListingContract> allLC = new ArrayList<>();
-        JSONArray jsonArray = new JSONArray();
-        try {
-            c = db.query(
-                    ListingEntry.TABLE_NAME,  // The table to query
-                    columns,                   // The columns to return
-                    whereClause,               // The columns for the WHERE clause
-                    whereArgs,                 // The values for the WHERE clause
-                    groupBy,                   // don't group the rows
-                    having,                    // don't filter by row groups
-                    orderBy                    // The sort order
-            );
-            while (c.moveToNext()) {
-                ListingContract listing = new ListingContract();
-                allLC.add(listing.hydrate(c, 0));
-            }
-            for (ListingContract fc : allLC) {
-                jsonArray.put(fc.toJSONObject());
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } finally {
-            if (c != null) {
-                c.close();
-            }
-            if (db != null) {
-                db.close();
-            }
-        }
-        return jsonArray;
-    }
-
     public Collection<ListingContract> getUnsyncedListings() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
-        String[] columns = {
-                ListingEntry._ID,
-                ListingEntry.COLUMN_NAME_UID,
-                ListingEntry.COLUMN_NAME_HHDATETIME,
-                ListingEntry.COLUMN_NAME_HHDATETIME01,
-                ListingEntry.COLUMN_NAME_ENUMCODE,
-                ListingEntry.COLUMN_NAME_CLUSTERCODE,
-                ListingEntry.COLUMN_NAME_ENUMSTR,
-                ListingEntry.COLUMN_NAME_HH01,
-                ListingEntry.COLUMN_NAME_HH02,
-                ListingEntry.COLUMN_NAME_HH03,
-                ListingEntry.COLUMN_NAME_HH04,
-                ListingEntry.COLUMN_NAME_HH04OTHER,
-                ListingEntry.COLUMN_NAME_HH05,
-                ListingEntry.COLUMN_NAME_HH06,
-                ListingEntry.COLUMN_NAME_HH07,
-                ListingEntry.COLUMN_NAME_HH07n,
-                ListingEntry.COLUMN_NAME_HH08,
-                ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH08A1,
-                ListingEntry.COLUMN_NAME_HH09A1,
-                ListingEntry.COLUMN_NAME_HH10,
-                ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_HH14,
-                ListingEntry.COLUMN_NAME_HH15,
-                ListingEntry.COLUMN_NAME_HH16,
-                ListingEntry.COLUMN_ADDRESS,
-                ListingEntry.COLUMN_ISNEWHH,
-                ListingEntry.COLUMN_COUNTER,
-                ListingEntry.COLUMN_USERNAME,
-                ListingEntry.COLUMN_NAME_DEVICEID,
-                ListingEntry.COLUMN_TAGID,
-                ListingEntry.COLUMN_NAME_GPSLat,
-                ListingEntry.COLUMN_NAME_GPSLng,
-                ListingEntry.COLUMN_NAME_GPSTime,
-                ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_GPSAltitude,
-                ListingEntry.COLUMN_APPVER,
-                ListingEntry.COLUMN_RANDOMIZED
-        };
+        String[] columns = null;
 
         String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
@@ -511,7 +386,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 ListingContract listing = new ListingContract();
-                allLC.add(listing.hydrate(c, 0));
+                allLC.add(listing.hydrate(c));
             }
         } finally {
             if (c != null) {
@@ -522,28 +397,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return allLC;
-    }
-
-    public void syncListingFromDevice(JSONArray fmlist) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        try {
-            JSONArray jsonArray = fmlist;
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObjectUser = jsonArray.getJSONObject(i);
-
-                ListingContract fmc = new ListingContract();
-                fmc.Sync(jsonObjectUser);
-
-                addForm(fmc);
-            }
-
-
-        } catch (Exception e) {
-            Log.d(TAG, "syncListing(e): " + e);
-        } finally {
-            db.close();
-        }
     }
 
     public Collection<SignupContract> getUnsyncedSignups() {
@@ -591,6 +444,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
+
     public Collection<ListingContract> getAllListingsForRandom() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
@@ -609,18 +463,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
-                ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH08A1,
-                ListingEntry.COLUMN_NAME_HH09A1,
+                ListingEntry.COLUMN_NAME_HH08A,
+                ListingEntry.COLUMN_NAME_DELHH,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_NAME_HH14,
                 ListingEntry.COLUMN_NAME_HH15,
-                ListingEntry.COLUMN_NAME_HH16,
+                ListingEntry.COLUMN_NAME_TABNO,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_ISNEWHH,
                 ListingEntry.COLUMN_COUNTER,
@@ -633,14 +486,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
                 ListingEntry.COLUMN_NAME_GPSAltitude,
                 ListingEntry.COLUMN_APPVER,
-                ListingEntry.COLUMN_RANDOMIZED,
                 "COUNT(*) as RESCOUNTER, " +
                         "COUNT(case " + ListingEntry.COLUMN_NAME_HH10 + " when '1' then 1 else null end) as CHILDCOUNTER," +
-                        "COUNT(case " + ListingEntry.COLUMN_RANDOMIZED + " when '1' then 1 else null end) as RANDCOUNTER," +
                         "COUNT(*) as TOTALHH"
         };
 
-        String whereClause = ListingEntry.COLUMN_NAME_HH08A1 + " =?";
+        String whereClause = ListingEntry.COLUMN_NAME_HH08A + " =?";
         String[] whereArgs = {"1"};
         String groupBy = ListingEntry.COLUMN_NAME_CLUSTERCODE;
         String having = null;
@@ -663,7 +514,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 ListingContract listing = new ListingContract();
-                allLC.add(listing.hydrate(c, 1));
+                allLC.add(listing.hydrate(c));
             }
         } finally {
             if (c != null) {
@@ -679,47 +530,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public JSONArray getListingsByCluster(String cluster) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
-        String[] columns = {
-                ListingEntry._ID,
-                ListingEntry.COLUMN_NAME_UID,
-                ListingEntry.COLUMN_NAME_HHDATETIME,
-                ListingEntry.COLUMN_NAME_ENUMCODE,
-                ListingEntry.COLUMN_NAME_CLUSTERCODE,
-                ListingEntry.COLUMN_NAME_ENUMSTR,
-                ListingEntry.COLUMN_NAME_HH01,
-                ListingEntry.COLUMN_NAME_HH02,
-                ListingEntry.COLUMN_NAME_HH03,
-                ListingEntry.COLUMN_NAME_HH04,
-                ListingEntry.COLUMN_NAME_HH04OTHER,
-                ListingEntry.COLUMN_NAME_HH05,
-                ListingEntry.COLUMN_NAME_HH06,
-                ListingEntry.COLUMN_NAME_HH07,
-                ListingEntry.COLUMN_NAME_HH07n,
-                ListingEntry.COLUMN_NAME_HH08,
-                ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH08A1,
-                ListingEntry.COLUMN_NAME_HH09A1,
-                ListingEntry.COLUMN_NAME_HH10,
-                ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_HH14,
-                ListingEntry.COLUMN_NAME_HH15,
-                ListingEntry.COLUMN_NAME_HH16,
-                ListingEntry.COLUMN_ADDRESS,
-                ListingEntry.COLUMN_ISNEWHH,
-                ListingEntry.COLUMN_COUNTER,
-                ListingEntry.COLUMN_USERNAME,
-                ListingEntry.COLUMN_NAME_DEVICEID,
-                ListingEntry.COLUMN_TAGID,
-                ListingEntry.COLUMN_NAME_GPSLat,
-                ListingEntry.COLUMN_NAME_GPSLng,
-                ListingEntry.COLUMN_NAME_GPSTime,
-                ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_GPSAltitude,
-                ListingEntry.COLUMN_APPVER,
-                ListingEntry.COLUMN_RANDOMIZED
-        };
+        String[] columns = null;
 
         String whereClause = ListingEntry.COLUMN_NAME_CLUSTERCODE + " = ?";
         String[] whereArgs = {cluster};
@@ -743,9 +554,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 ListingContract listing = new ListingContract();
-                allLC.add(listing.hydrate(c, 0));
+                allLC.add(listing.hydrate(c));
             }
-
             for (ListingContract lc : allLC) {
                 try {
                     jsonArray.put(lc.toJSONObject());
@@ -765,55 +575,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return jsonArray;
     }
 
-
     public ArrayList<ListingContract> randomLisiting(String clusterCode) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
-        String[] columns = {
-                ListingEntry._ID,
-                ListingEntry.COLUMN_NAME_UID,
-                ListingEntry.COLUMN_NAME_HHDATETIME,
-                ListingEntry.COLUMN_NAME_ENUMCODE,
-                ListingEntry.COLUMN_NAME_CLUSTERCODE,
-                ListingEntry.COLUMN_NAME_ENUMSTR,
-                ListingEntry.COLUMN_NAME_HH01,
-                ListingEntry.COLUMN_NAME_HH02,
-                ListingEntry.COLUMN_NAME_HH03,
-                ListingEntry.COLUMN_NAME_HH04,
-                ListingEntry.COLUMN_NAME_HH04OTHER,
-                ListingEntry.COLUMN_NAME_HH05,
-                ListingEntry.COLUMN_NAME_HH06,
-                ListingEntry.COLUMN_NAME_HH07,
-                ListingEntry.COLUMN_NAME_HH07n,
-                ListingEntry.COLUMN_NAME_HH08,
-                ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH08A1,
-                ListingEntry.COLUMN_NAME_HH09A1,
-                ListingEntry.COLUMN_NAME_HH10,
-                ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_HH14,
-                ListingEntry.COLUMN_NAME_HH15,
-                ListingEntry.COLUMN_NAME_HH16,
-                ListingEntry.COLUMN_ADDRESS,
-                ListingEntry.COLUMN_ISNEWHH,
-                ListingEntry.COLUMN_COUNTER,
-                ListingEntry.COLUMN_USERNAME,
-                ListingEntry.COLUMN_NAME_DEVICEID,
-                ListingEntry.COLUMN_TAGID,
-                ListingEntry.COLUMN_NAME_GPSLat,
-                ListingEntry.COLUMN_NAME_GPSLng,
-                ListingEntry.COLUMN_NAME_GPSTime,
-                ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_GPSAltitude,
-                ListingEntry.COLUMN_APPVER,
-                ListingEntry.COLUMN_RANDOMIZED
-        };
+        String[] columns = null;
 
-        String whereClause = ListingEntry.COLUMN_NAME_HH08A1 + " =? AND "
-                + ListingEntry.COLUMN_NAME_CLUSTERCODE + " =? AND "
-                + ListingEntry.COLUMN_RANDOMIZED + " =?";
+        String whereClause = ListingEntry.COLUMN_NAME_HH08A + " =? AND "
+                + ListingEntry.COLUMN_NAME_CLUSTERCODE + " =?";
         String[] whereArgs = {"1", clusterCode, "2"};
         String groupBy = null;
         String having = null;
@@ -834,7 +602,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 ListingContract listing = new ListingContract();
-                allLC.add(listing.hydrate(c, 0));
+                allLC.add(listing.hydrate(c));
             }
         } finally {
             if (c != null) {
@@ -1288,8 +1056,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return allVC;
     }
-
-    //New Functionality
 
 
     //Get All EnumBlock

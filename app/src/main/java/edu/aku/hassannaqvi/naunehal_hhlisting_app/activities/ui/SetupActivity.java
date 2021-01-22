@@ -19,6 +19,7 @@ import com.validatorcrawler.aliazaz.Validator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.R;
@@ -96,12 +97,10 @@ public class SetupActivity extends Activity {
             }
         });
 
-        bi.hh14.setOnCheckedChangeListener((group, checkedId) -> {
-
+        bi.hh08a1.setOnCheckedChangeListener((group, checkedId) -> {
             MainApp.hh07txt = "1";
-
             bi.hh07.setText(new StringBuilder(getString(R.string.hh07)).append(":").append(MainApp.hh07txt));
-            if (bi.hh14a.isChecked()) {
+            if (bi.hh08a1a.isChecked()) {
                 bi.fldGrpHH04.setVisibility(View.VISIBLE);
                 bi.btnNextStructure.setVisibility(View.GONE);
             } else {
@@ -137,34 +136,34 @@ public class SetupActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         lc.setTagId(sharedPref.getString("tagName", null));
         lc.setAppVer(MainApp.versionName + "." + MainApp.versionCode);
-        lc.setHhDT(new SimpleDateFormat("dd-MM-yy HH:mm:ss").format(new Date().getTime()));
+        lc.setHhDT(new SimpleDateFormat("dd-MM-yy HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
         lc.setEnumCode(MainApp.enumCode);
         lc.setClusterCode(MainApp.clusterCode);
         lc.setEnumStr(MainApp.enumStr);
         lc.setHh01(String.valueOf(MainApp.hh01txt));
         lc.setHh02(MainApp.hh02txt);
         lc.setHh03(String.valueOf(MainApp.hh03txt));
-        lc.setHh04(bi.hh04a.isChecked() ? "1" :
-                bi.hh04b.isChecked() ? "2" :
-                        bi.hh04c.isChecked() ? "3" :
-                                bi.hh04d.isChecked() ? "4" :
-                                        bi.hh04e.isChecked() ? "5" :
-                                                bi.hh04f.isChecked() ? "6" :
-                                                        bi.hh04h.isChecked() ? "8" :
-                                                                bi.hh04i.isChecked() ? "9" :
-                                                                        bi.hh0496.isChecked() ? "96" :
-                                                                                "0");
+        lc.setHh04(
+                bi.hh04a.isChecked() ? "1" :
+                        bi.hh04b.isChecked() ? "2" :
+                                bi.hh04c.isChecked() ? "3" :
+                                        bi.hh04d.isChecked() ? "4" :
+                                                bi.hh04e.isChecked() ? "5" :
+                                                        bi.hh04f.isChecked() ? "6" :
+                                                                bi.hh04h.isChecked() ? "8" :
+                                                                        bi.hh04i.isChecked() ? "9" :
+                                                                                bi.hh0496.isChecked() ? "96" :
+                                                                                        "-1");
         lc.setUsername(MainApp.userEmail);
         lc.setHh05(bi.hh05.isChecked() ? "1" : "2");
         lc.setHh06(Objects.requireNonNull(bi.hh06.getText()).toString());
         lc.setHh07(MainApp.hh07txt);
-        lc.setHh09a1(bi.hh04a.isChecked() ? "1" : "2");
         lc.setDeviceID(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
-        lc.setIsRandom(MainApp.tabCheck);
-        lc.setHh08a1(bi.hh14a.isChecked() ? "1" : bi.hh14b.isChecked() ? "2" : "0");
+        lc.setTabNo(MainApp.tabCheck);
+        lc.setHh08a(bi.hh08a1a.isChecked() ? "1" : bi.hh08a1b.isChecked() ? "2" : "-1");
+        lc.setDelHH(bi.hh04a.isChecked() ? "1" : "2");
         setGPS();
         MainApp.fTotal = bi.hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(bi.hh06.getText().toString());
-        Log.d(TAG, "SaveDraft: " + lc.getHh03());
     }
 
     public void setGPS() {

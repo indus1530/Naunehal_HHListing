@@ -2,7 +2,6 @@ package edu.aku.hassannaqvi.naunehal_hhlisting_app.activities.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import com.validatorcrawler.aliazaz.Clear;
 import com.validatorcrawler.aliazaz.Validator;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.R;
@@ -31,15 +31,15 @@ public class FamilyListingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        bi = ActivityFamilyListingBinding.inflate(getLayoutInflater());
         bi = DataBindingUtil.setContentView(this, R.layout.activity_family_listing);
         bi.setCallback(this);
-        this.setTitle("Family Information");
-        Members.txtTeamNoWithFam.set(MainApp.tabCheck + "-" + String.format("%04d", MainApp.hh03txt) + "-" + String.format("%03d", Integer.valueOf(MainApp.hh07txt)));
-
+        Members.txtTeamNoWithFam.set(MainApp.tabCheck + "-" +
+                String.format(Locale.ENGLISH, "%04d", MainApp.hh03txt)
+                + "-" +
+                String.format(Locale.ENGLISH, "%03d", Integer.valueOf(MainApp.hh07txt)));
         setupButtons();
 
-        bi.hh17.setOnCheckedChangeListener((compoundButton, b) -> {
+        bi.isNewHH.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 bi.btnAddNewHousehold.setVisibility(View.VISIBLE);
                 bi.btnAddHousehold.setVisibility(View.GONE);
@@ -55,16 +55,13 @@ public class FamilyListingActivity extends AppCompatActivity {
                     }
                 }
             }
-            Members.txtTeamNoWithFam.set(MainApp.tabCheck + "-S" + String.format("%04d", MainApp.hh03txt) + "-H" + String.format("%03d", Integer.valueOf(MainApp.hh07txt)));
+            Members.txtTeamNoWithFam.set(
+                    MainApp.tabCheck + "-S" +
+                            String.format(Locale.ENGLISH, "%04d", MainApp.hh03txt) + "-H" +
+                            String.format(Locale.ENGLISH, "%03d", Integer.valueOf(MainApp.hh07txt)));
         });
 
-        bi.deleteHH.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) {
-                Clear.clearAllFields(bi.fldGrpSecB01, false);
-            } else {
-                Clear.clearAllFields(bi.fldGrpSecB01, true);
-            }
-        });
+        bi.delHH.setOnCheckedChangeListener((compoundButton, b) -> Clear.clearAllFields(bi.fldGrpSecB01, !b));
 
     }
 
@@ -74,46 +71,43 @@ public class FamilyListingActivity extends AppCompatActivity {
     }
 
     public void onTextChangedHH16(CharSequence s, int start, int before, int count) {
-        if (Objects.requireNonNull(bi.hh16.getText()).toString().trim().isEmpty()) return;
-        bi.hh11.setMaxvalue(Float.parseFloat(bi.hh16.getText().toString()) - 1);
+        if (Objects.requireNonNull(bi.hh09.getText()).toString().trim().isEmpty()) return;
+        bi.hh11.setMaxvalue(Float.parseFloat(bi.hh09.getText().toString()) - 1);
     }
 
     public void setupButtons() {
         if (MainApp.fCount < MainApp.fTotal) {
             bi.btnAddFamily.setVisibility(View.VISIBLE);
             bi.btnAddHousehold.setVisibility(View.GONE);
-            bi.hh17.setVisibility(View.GONE);
+            bi.isNewHH.setVisibility(View.GONE);
         } else {
             bi.btnAddFamily.setVisibility(View.GONE);
             bi.btnAddHousehold.setVisibility(View.VISIBLE);
-            bi.hh17.setVisibility(View.VISIBLE);
-            bi.deleteHH.setVisibility(View.VISIBLE);
+            bi.isNewHH.setVisibility(View.VISIBLE);
+            bi.delHH.setVisibility(View.VISIBLE);
         }
     }
 
     private void saveDraft() {
-
         lc.setHh07(MainApp.hh07txt);
-//        MainApp.lc.setHh08a1("1");
         lc.setHh08(bi.hh08.getText().toString());
         lc.setHh09(bi.hh09.getText().toString());
-        lc.setHh10(bi.hh10a.isChecked() ? "1" : bi.hh10b.isChecked() ? "2" : "0");
-        lc.setHh11(bi.hh11.getText().toString().isEmpty() ? "0" : bi.hh11.getText().toString());
-        lc.setHh12(bi.hh12a.isChecked() ? "1" : bi.hh12b.isChecked() ? "2" : "0");
-        lc.setHh13(bi.hh13.getText().toString().isEmpty() ? "0" : bi.hh13.getText().toString());
-        lc.setHh14(bi.hh16.getText().toString());
-        lc.setHh15(bi.deleteHH.isChecked() ? "1" : "0");
-        lc.setIsNewHH(bi.hh17.isChecked() ? "1" : "2");
+        lc.setHh10(bi.hh10a.isChecked() ? "1" : bi.hh10b.isChecked() ? "2" : "-1");
+        lc.setHh11(bi.hh11.getText().toString().isEmpty() ? "-1" : bi.hh11.getText().toString());
+        lc.setHh12(bi.hh12a.isChecked() ? "1" : bi.hh12b.isChecked() ? "2" : "-1");
+        lc.setHh13(bi.hh13.getText().toString().isEmpty() ? "-1" : bi.hh13.getText().toString());
+        lc.setHh14(bi.hh14a.isChecked() ? "1" : bi.hh14b.isChecked() ? "2" : "-1");
+        lc.setHh15(bi.hh15.getText().toString().isEmpty() ? "-1" : bi.hh15.getText().toString());
 
-        Log.d(TAG, "SaveDraft: Structure " + lc.getHh03());
-
+        lc.setDelHH(bi.delHH.isChecked() ? "1" : "-1");
+        lc.setIsNewHH(bi.isNewHH.isChecked() ? "1" : "2");
     }
 
     private boolean formValidation() {
         return Validator.emptyCheckingContainer(this, bi.fldGrpSecB01);
     }
 
-    private boolean UpdateDB() {
+    private boolean updateDB() {
         DatabaseHelper db = new DatabaseHelper(this);
         long updcount = db.addForm(lc);
         lc.setID(String.valueOf(updcount));
@@ -131,13 +125,11 @@ public class FamilyListingActivity extends AppCompatActivity {
         if (formValidation()) {
 
             saveDraft();
-            if (UpdateDB()) {
+            if (updateDB()) {
                 if (familyFlag)
                     MainApp.hh07txt = String.valueOf(Integer.parseInt(MainApp.hh07txt) + 1);
                 else {
-
                     MainApp.hh07txt = String.valueOf(Integer.parseInt(MainApp.hh07txt) + 1);
-
                     familyFlag = true;
                 }
                 lc.setHh07(MainApp.hh07txt);
@@ -155,7 +147,7 @@ public class FamilyListingActivity extends AppCompatActivity {
         if (formValidation()) {
 
             saveDraft();
-            if (UpdateDB()) {
+            if (updateDB()) {
                 MainApp.hh07txt = String.valueOf(Integer.parseInt(MainApp.hh07txt) + 1);
                 lc.setHh07(MainApp.hh07txt);
                 MainApp.fCount++;
@@ -173,7 +165,7 @@ public class FamilyListingActivity extends AppCompatActivity {
         if (formValidation()) {
 
             saveDraft();
-            if (UpdateDB()) {
+            if (updateDB()) {
                 MainApp.fCount = 0;
                 MainApp.fTotal = 0;
                 MainApp.cCount = 0;

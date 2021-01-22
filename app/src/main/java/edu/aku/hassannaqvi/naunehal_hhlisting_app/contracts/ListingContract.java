@@ -26,18 +26,17 @@ public class ListingContract {
     private String hh05;
     private String hh06;
     private String hh07;
-    private String hh07n;
-    private String hh08a1;
+    private String hh08a;
     private String hh08;
     private String hh09;
-    private String hh09a1;
+    private String delHH;
     private String hh10;
     private String hh11;
     private String hh12;
     private String hh13;
     private String hh14;
     private String hh15;
-    private String hh16;
+    private String tabNo;
     private String hhadd;
     private String isNewHH;
     private String counter;
@@ -49,12 +48,7 @@ public class ListingContract {
     private String GPSAlt;
     private String AppVer;
     private String tagId;
-    private String isRandom;
-    private String resCount;
-    private String childCount;
-    public String randCount;
-    private String totalhh;
-    private String username; // User Name
+    private String username;
 
     public ListingContract() {
     }
@@ -69,46 +63,6 @@ public class ListingContract {
 
     public void setHh04other(String hh04other) {
         this.hh04other = hh04other;
-    }
-
-    public String getTotalhh() {
-        return totalhh;
-    }
-
-    public void setTotalhh(String totalhh) {
-        this.totalhh = totalhh;
-    }
-
-    public String getRandCount() {
-        return randCount;
-    }
-
-    public void setRandCount(String randCount) {
-        this.randCount = randCount;
-    }
-
-    public String getIsRandom() {
-        return isRandom;
-    }
-
-    public void setIsRandom(String isRandom) {
-        this.isRandom = isRandom;
-    }
-
-    public String getResCount() {
-        return resCount;
-    }
-
-    public void setResCount(String resCount) {
-        this.resCount = resCount;
-    }
-
-    public String getChildCount() {
-        return childCount;
-    }
-
-    public void setChildCount(String childCount) {
-        this.childCount = childCount;
     }
 
     public String getClusterCode() {
@@ -228,14 +182,6 @@ public class ListingContract {
         this.hh07 = hh07;
     }
 
-    public String getHh07n() {
-        return hh07n;
-    }
-
-    public void setHh07n(String hh07n) {
-        this.hh07n = hh07n;
-    }
-
     public String getHh08() {
         return hh08;
     }
@@ -252,12 +198,12 @@ public class ListingContract {
         this.hh09 = hh09;
     }
 
-    public String getHh09a1() {
-        return hh09a1;
+    public String getDelHH() {
+        return delHH;
     }
 
-    public void setHh09a1(String hh09a1) {
-        this.hh09a1 = hh09a1;
+    public void setDelHH(String delHH) {
+        this.delHH = delHH;
     }
 
     public String getHh10() {
@@ -380,12 +326,12 @@ public class ListingContract {
         this.GPSAlt = GPSAlt;
     }
 
-    public String getHh16() {
-        return hh16;
+    public String getTabNo() {
+        return tabNo;
     }
 
-    public void setHh16(String hh16) {
-        this.hh16 = hh16;
+    public void setTabNo(String tabNo) {
+        this.tabNo = tabNo;
     }
 
     public String getIsNewHH() {
@@ -396,12 +342,12 @@ public class ListingContract {
         this.isNewHH = isNewHH;
     }
 
-    public String getHh08a1() {
-        return hh08a1;
+    public String getHh08a() {
+        return hh08a;
     }
 
-    public void setHh08a1(String hh08a1) {
-        this.hh08a1 = hh08a1;
+    public void setHh08a(String hh08a) {
+        this.hh08a = hh08a;
     }
 
     public String getCounter() {
@@ -438,18 +384,17 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
         json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
         json.put(ListingEntry.COLUMN_NAME_HH07, this.hh07);
-        json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
-        json.put(ListingEntry.COLUMN_NAME_HH09A1, this.hh09a1);
-        json.put(ListingEntry.COLUMN_NAME_HH08A1, this.hh08a1);
+        json.put(ListingEntry.COLUMN_NAME_DELHH, this.delHH);
+        json.put(ListingEntry.COLUMN_NAME_HH08A, this.hh08a);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
         json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
         json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
         json.put(ListingEntry.COLUMN_NAME_HH15, this.hh15);
-        json.put(ListingEntry.COLUMN_NAME_HH16, this.hh16);
+        json.put(ListingEntry.COLUMN_NAME_TABNO, this.tabNo);
         json.put(ListingEntry.COLUMN_ADDRESS, this.hhadd);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
@@ -461,7 +406,6 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
         json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
-        json.put(ListingEntry.COLUMN_RANDOMIZED, this.isRandom);
         if (!this.counter.equals("")) {
             json.put(ListingEntry.COLUMN_COUNTER, new JSONObject(this.counter));
         }
@@ -469,7 +413,7 @@ public class ListingContract {
         return json;
     }
 
-    public ListingContract hydrate(Cursor c, int type) {
+    public ListingContract hydrate(Cursor c) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
@@ -485,18 +429,17 @@ public class ListingContract {
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
-        lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
-        lc.setHh09a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A1))));
-        lc.setHh08a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08A1))));
+        lc.setDelHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DELHH))));
+        lc.setHh08a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08A))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
         lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh15(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH15))));
-        lc.setHh16(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH16))));
+        lc.setTabNo(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_TABNO))));
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ADDRESS))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
@@ -508,63 +451,10 @@ public class ListingContract {
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
         lc.setIsNewHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ISNEWHH))));
-        lc.setIsRandom(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_RANDOMIZED))));
         lc.setCounter(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER)) != null ?
                 c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER)) : ""));
-        if (type == 1) {
-            lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
-            lc.setChildCount(String.valueOf(c.getString(c.getColumnIndex("CHILDCOUNTER"))));
-            lc.setRandCount(String.valueOf(c.getString(c.getColumnIndex("RANDCOUNTER"))));
-            lc.setTotalhh(String.valueOf(c.getString(c.getColumnIndex("TOTALHH"))));
-        }
 
         return lc;
-    }
-
-    public ListingContract Sync(JSONObject jsonObject) throws JSONException {
-
-        this.ID = jsonObject.getString(ListingEntry._ID);
-        this.UID = jsonObject.getString(ListingEntry.COLUMN_NAME_UID);
-        this.hhDT = jsonObject.getString(ListingEntry.COLUMN_NAME_HHDATETIME);
-        this.enumCode = jsonObject.getString(ListingEntry.COLUMN_NAME_ENUMCODE);
-        this.clusterCode = jsonObject.getString(ListingEntry.COLUMN_NAME_CLUSTERCODE);
-        this.enumStr = jsonObject.getString(ListingEntry.COLUMN_NAME_ENUMSTR);
-        this.hh01 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH01);
-        this.hh02 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH02);
-        this.hh03 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH03);
-        this.hh04 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH04);
-        this.hh04other = jsonObject.getString(ListingEntry.COLUMN_NAME_HH04OTHER);
-        this.hh05 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH05);
-        this.hh06 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH06);
-        this.hh07 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH07);
-        this.hh07n = jsonObject.getString(ListingEntry.COLUMN_NAME_HH07n);
-        this.hh08a1 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH08A1);
-        this.hh08 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH08);
-        this.hh09 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH09);
-        this.hh09a1 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH09A1);
-        this.hh10 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH10);
-        this.hh11 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH11);
-        this.hh12 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH12);
-        this.hh13 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH13);
-        this.hh14 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH14);
-        this.hh15 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH15);
-        this.hh16 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH16);
-        this.hhadd = jsonObject.getString(ListingEntry.COLUMN_ADDRESS);
-        this.isNewHH = jsonObject.getString(ListingEntry.COLUMN_ISNEWHH);
-        this.DeviceID = jsonObject.getString(ListingEntry.COLUMN_NAME_DEVICEID);
-        this.GPSLat = jsonObject.getString(ListingEntry.COLUMN_NAME_GPSLat);
-        this.GPSLng = jsonObject.getString(ListingEntry.COLUMN_NAME_GPSLng);
-        this.GPSTime = jsonObject.getString(ListingEntry.COLUMN_NAME_GPSTime);
-        this.GPSAcc = jsonObject.getString(ListingEntry.COLUMN_NAME_GPSAccuracy);
-        this.GPSAlt = jsonObject.getString(ListingEntry.COLUMN_NAME_GPSAltitude);
-        this.AppVer = jsonObject.getString(ListingEntry.COLUMN_APPVER);
-        this.tagId = jsonObject.getString(ListingEntry.COLUMN_TAGID);
-        this.isRandom = jsonObject.getString(ListingEntry.COLUMN_RANDOMIZED);
-        this.username = jsonObject.getString(ListingEntry.COLUMN_USERNAME);
-
-        this.counter = jsonObject.getString(ListingEntry.COLUMN_COUNTER);
-
-        return this;
     }
 
     public static abstract class ListingEntry implements BaseColumns {
@@ -586,18 +476,17 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH05 = "hh05";
         public static final String COLUMN_NAME_HH06 = "hh06";
         public static final String COLUMN_NAME_HH07 = "hh07";
-        public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
-        public static final String COLUMN_NAME_HH08A1 = "hh08a1";
-        public static final String COLUMN_NAME_HH09A1 = "hh09a1";
+        public static final String COLUMN_NAME_HH08A = "hh08a";
+        public static final String COLUMN_NAME_DELHH = "delhh";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_HH12 = "hh12";
         public static final String COLUMN_NAME_HH13 = "hh13";
         public static final String COLUMN_NAME_HH14 = "hh14";
         public static final String COLUMN_NAME_HH15 = "hh15";
-        public static final String COLUMN_NAME_HH16 = "hh16";
+        public static final String COLUMN_NAME_TABNO = "tabNo";
         public static final String COLUMN_ADDRESS = "hhadd";
         public static final String COLUMN_ISNEWHH = "isnewhh";
         public static final String COLUMN_COUNTER = "counter";
@@ -611,8 +500,6 @@ public class ListingContract {
         public static final String COLUMN_TAGID = "tagId";
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
-        public static final String COLUMN_RANDOMIZED = "tabNo";
-
         public static final String COLUMN_USERNAME = "username";
         public static final String _URL = "sync.php";
     }

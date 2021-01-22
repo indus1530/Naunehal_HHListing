@@ -26,40 +26,32 @@
         android:textDirection="rtl"
         tools:context=".activities.ui.FamilyListingActivity">
 
-        <LinearLayout
-            android:id="@+id/activity_household_listing"
-            style="@style/linearlayout_view">
-
+        <LinearLayout style="@style/linearlayout_view">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/deleteHHcv"
                 style="@style/cardView"
-                android:layout_marginTop="24dp">
+                android:layout_margin="15dp">
 
-                <LinearLayout style="@style/hlinearlayout">
-
-                    <TextView
-                        android:id="@+id/txtTeamNoWithFam"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:text="@{member.txtTeamNoWithFam}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/_22sdp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/txtTeamNoWithFam"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:text="@{member.txtTeamNoWithFam}"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_22sdp"
+                    android:textStyle="bold" />
 
             </androidx.cardview.widget.CardView>
 
             <CheckBox
-                android:id="@+id/deleteHH"
+                android:id="@+id/delHH"
                 style="@style/checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:tag="-1"
-                android:text="@string/delete"
+                android:text="@string/delHH"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -97,34 +89,6 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/hh09cv"
-                    style="@style/cardView"
-                    android:visibility="gone">
-
-                    <LinearLayout style="@style/vlinearlayout">
-
-                        <TextView
-                            style="@style/i_textview"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/hh09" />
-
-                        <EditText
-                            android:id="@+id/hh09"
-                            style="@style/EditTextNum"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:hint="@string/num"
-                            android:maxLength="11" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/hh16cv"
                     style="@style/cardView">
 
                     <LinearLayout style="@style/hlinearlayout">
@@ -135,11 +99,11 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/hh16" />
+                            android:text="@string/hh09" />
 
 
                         <com.edittextpicker.aliazaz.EditTextPicker
-                            android:id="@+id/hh16"
+                            android:id="@+id/hh09"
                             style="@style/EditTextNum"
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -188,7 +152,7 @@
                         <com.edittextpicker.aliazaz.EditTextPicker
                             android:id="@+id/hh11"
                             style="@style/EditTextNum"
-                            android:hint="@string/hh10a"
+                            android:hint="@string/qty"
                             android:maxLength="2"
                             android:onTextChanged="@{callback.onTextChangedHH11}"
                             android:text='@{hh10a.checked ? hh11.getText().toString() : ""}'
@@ -236,7 +200,7 @@
                         <com.edittextpicker.aliazaz.EditTextPicker
                             android:id="@+id/hh13"
                             style="@style/EditTextNum"
-                            android:hint="@string/hh10a"
+                            android:hint="@string/qty"
                             android:maxLength="2"
                             android:text='@{hh12a.checked ? hh13.getText().toString() : ""}'
                             android:visibility="@{hh12a.checked ? View.VISIBLE : View.GONE}"
@@ -250,19 +214,65 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/hh17cv"
+                    android:id="@+id/hh14cv"
+                    style="@style/cardView">
+
+                    <LinearLayout style="@style/vlinearlayout">
+
+                        <TextView
+                            style="@style/i_textview"
+                            android:text="@string/hh14" />
+
+                        <RadioGroup
+                            android:id="@+id/hh14"
+                            style="@style/hradiogroup">
+
+                            <RadioButton
+                                android:id="@+id/hh14a"
+                                style="@style/radiobutton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/yes" />
+
+                            <RadioButton
+                                android:id="@+id/hh14b"
+                                style="@style/radiobutton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/no" />
+
+                        </RadioGroup>
+
+                        <com.edittextpicker.aliazaz.EditTextPicker
+                            android:id="@+id/hh15"
+                            style="@style/EditTextNum"
+                            android:hint="@string/qty"
+                            android:maxLength="2"
+                            android:text='@{hh14a.checked ? hh13.getText().toString() : ""}'
+                            android:visibility="@{hh14a.checked ? View.VISIBLE : View.GONE}"
+                            app:maxValue="0"
+                            app:minValue="1"
+                            app:type="range" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/isNewHHcv"
                     style="@style/cardView">
 
                     <LinearLayout style="@style/linearlayout_view_wt_bound">
 
-                        <Switch
-                            android:id="@+id/hh17"
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/isNewHH"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:padding="@dimen/_8sdp"
                             android:tag="-1"
-                            android:text="@string/hh17"
+                            android:text="@string/isNewHH"
                             android:textColor="@color/colorPrimaryDark"
                             android:textOff="@string/no"
                             android:textOn="@string/yes"
