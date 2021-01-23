@@ -139,6 +139,7 @@ public class SetupActivity extends Activity {
         lc.setHhDT(new SimpleDateFormat("dd-MM-yy HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
         lc.setEnumCode(MainApp.enumCode);
         lc.setClusterCode(MainApp.clusterCode);
+        lc.setHhDT01(MainApp.formDate);
         lc.setEnumStr(MainApp.enumStr);
         lc.setHh01(String.valueOf(MainApp.hh01txt));
         lc.setHh02(MainApp.hh02txt);

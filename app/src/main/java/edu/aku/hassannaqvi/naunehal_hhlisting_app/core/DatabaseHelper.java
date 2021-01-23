@@ -248,6 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
+        values.put(ListingEntry.COLUMN_NAME_HHDATETIME01, lc.getHhDT01());
 
         values.put(ListingEntry.COLUMN_NAME_ENUMCODE, lc.getEnumCode());
         values.put(ListingEntry.COLUMN_NAME_CLUSTERCODE, lc.getClusterCode());

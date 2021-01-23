@@ -68,6 +68,7 @@ import edu.aku.hassannaqvi.naunehal_hhlisting_app.contracts.VerticesContract;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.DatabaseHelper;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.MainApp;
+import io.blackbox_vision.datetimepickeredittext.view.DatePickerEditText;
 
 public class MainActivity extends MenuActivity {
 
@@ -117,6 +118,8 @@ public class MainActivity extends MenuActivity {
     RadioButton lstwarninga;
     @BindView(R.id.lstwarningb)
     RadioButton lstwarningb;
+    @BindView(R.id.formDate)
+    DatePickerEditText formDate;
 
     SharedPreferences sharedPref;
     SharedPreferences sharedPrefInfo;
@@ -514,6 +517,8 @@ public class MainActivity extends MenuActivity {
     }
 
     public void openForm(View view) {
+        if (!Validator.emptyTextBox(this, formDate)) return;
+        MainApp.formDate = formDate.getText().toString();
         NextSetupActivity();
     }
 

@@ -65,6 +65,7 @@ public class MainApp extends Application {
     public static String versionName;
     public static boolean validateFlag;
     public static String tabCheck = "";
+    public static String formDate;
     protected static LocationManager locationManager;
     Location location;
 
