@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "naunehal-hhl.db";
     public static final String PROJECT_NAME = "naunehal-hhl";
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
-    public static final String FOLDER_NAME = "DMU-NAUNEHAL_HHL";
+    public static final String FOLDER_NAME = "DMU-Naunehal_HHL";
     private static final int DATABASE_VERSION = 1;
     public static String TAG = "DatabaseHelper";
     public static String DB_FORM_ID;

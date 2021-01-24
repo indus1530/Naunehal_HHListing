@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:gravity="center"
-                android:text="@string/app_name"
+                android:text="Naunehal Baseline Survey"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20sdp"
                 android:textStyle="bold"
@@ -65,12 +65,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="@string/a_project_of"
+                android:text="Household Listing"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/_15sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/projectName"
@@ -80,6 +80,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
@@ -202,7 +203,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Province" />
+                            android:text="PROVINCE" />
 
                         <Spinner
                             android:id="@+id/spinnerProvince"
@@ -232,7 +233,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="UC" />
+                            android:text="DISTRICT" />
 
                         <Spinner
                             android:id="@+id/spinnerDistrict"

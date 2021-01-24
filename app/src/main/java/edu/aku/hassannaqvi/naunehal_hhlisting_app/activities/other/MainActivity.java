@@ -156,8 +156,8 @@ public class MainActivity extends MenuActivity {
                         editorDownload.putBoolean("flag", true);
                         editorDownload.commit();
 
-                        Toast.makeText(context, "NAUNEHAL Linelisting APP downloaded!!", Toast.LENGTH_SHORT).show();
-                        lblAppVersion.setText("NAUNEHAL Linelisting APP New Version " + newVer + "  Downloaded.");
+                        Toast.makeText(context, "Naunehal Linelisting APP downloaded!!", Toast.LENGTH_SHORT).show();
+                        lblAppVersion.setText("Naunehal Linelisting APP New Version " + newVer + "  Downloaded.");
 
                         ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                         List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
@@ -195,7 +195,7 @@ public class MainActivity extends MenuActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        this.setTitle("Household Linelisting");
+        this.setTitle("Naunehal Household Linelisting");
 
         if (MainApp.admin) {
             adminBlock.setVisibility(View.VISIBLE);
@@ -269,19 +269,19 @@ public class MainActivity extends MenuActivity {
                 file = new File(Environment.getExternalStorageDirectory() + File.separator + fileName, versionAppContract.getPathname());
 
                 if (file.exists()) {
-                    lblAppVersion.setText("NAUNEHAL Linelisting APP New Version " + newVer + "  Downloaded.");
+                    lblAppVersion.setText("Naunehal Linelisting APP New Version " + newVer + "  Downloaded.");
                     showDialog(newVer, preVer);
                 } else {
                     NetworkInfo networkInfo = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
 
-                        lblAppVersion.setText("NAUNEHAL Linelisting APP New Version " + newVer + " Downloading..");
+                        lblAppVersion.setText("Naunehal Linelisting APP New Version " + newVer + " Downloading..");
                         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                         Uri uri = Uri.parse(MainApp._UPDATE_URL + versionAppContract.getPathname());
                         DownloadManager.Request request = new DownloadManager.Request(uri);
                         request.setDestinationInExternalPublicDir(fileName, versionAppContract.getPathname())
                                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                                .setTitle("Downloading NAUNEHAL new App ver." + newVer);
+                                .setTitle("Downloading Naunehal new App ver." + newVer);
                         refID = downloadManager.enqueue(request);
 
                         editorDownload.putLong("refID", refID);
@@ -289,7 +289,7 @@ public class MainActivity extends MenuActivity {
                         editorDownload.commit();
 
                     } else {
-                        lblAppVersion.setText("NAUNEHAL Linelisting APP New Version " + newVer + "  Available..\n(Can't download.. Internet connectivity issue!!)");
+                        lblAppVersion.setText("Naunehal Linelisting APP New Version " + newVer + "  Available..\n(Can't download.. Internet connectivity issue!!)");
                     }
                 }
 
@@ -413,6 +413,11 @@ public class MainActivity extends MenuActivity {
 
         if (!txtPSU.getText().toString().isEmpty()) {
 
+            if (txtPSU.getText().toString().length() != 6) {
+                txtPSU.setError("Length not meet with criteria");
+                return;
+            }
+
             txtPSU.setError(null);
             boolean loginFlag;
             int clus = Integer.parseInt(txtPSU.getText().toString().substring(0, 3));
@@ -442,7 +447,6 @@ public class MainActivity extends MenuActivity {
                         flag = true;
                         chkconfirm.setOnCheckedChangeListener((compoundButton, b) -> {
                             if (chkconfirm.isChecked()) {
-                                openForm.setBackgroundColor(getResources().getColor(R.color.green));
                                 lllstwarning.setVisibility(View.VISIBLE);
                                 MainApp.hh01txt = 1;
 
@@ -500,8 +504,8 @@ public class MainActivity extends MenuActivity {
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to continue?");
-        builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
+        builder.setTitle("Data for this cluster already exists");
+        builder.setMessage("Do you want to continue?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
@@ -532,7 +536,7 @@ public class MainActivity extends MenuActivity {
                 MainApp.tabCheck = lstwarninga.isChecked() ? "A" : lstwarningb.isChecked() ? "B" : "";
 
             if (MainApp.PSUExist(MainApp.hh02txt)) {
-                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Cluster data already exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 if (MainApp.tabCheck.equals(""))
@@ -651,8 +655,8 @@ public class MainActivity extends MenuActivity {
 
             return new AlertDialog.Builder(getActivity())
                     .setIcon(R.drawable.exclamation)
-                    .setTitle("NAUNEHAL-2020 Line Listing APP is available!")
-                    .setMessage("NAUNEHAL Line Listing App " + newVer + " is now available. Your are currently using older version " + preVer + ".\nInstall new version to use this app.")
+                    .setTitle("Naunehal-2020 Line Listing APP is available!")
+                    .setMessage("Naunehal Line Listing App " + newVer + " is now available. Your are currently using older version " + preVer + ".\nInstall new version to use this app.")
                     .setPositiveButton("INSTALL!!",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
