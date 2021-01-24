@@ -25,7 +25,7 @@
     <string name="hh14"> کیا آپ اس گھر/محلے میں 6 ماہ سے زیادہ عرصہ سے رہائش پزیر ہیں؟ </string>
     <string name="isNewHH"> کیا اس گھر میں مذید کوئی خاندان رہائش پزیر ہے </string>
     <string name="delHH"> Delete this HH </string>
-    <string name="tabNo">کیا یہ پہلا ٹیب ہے جو اس کلسٹر میں استعمال ہوتا ہے؟</string>
+    <string name="tabNo">کیا یہ اس کلسٹر میں استعمال ہونے والا پہلا ٹیب ہے؟</string>
 
     <string name="na101a"> ضلعہ </string>
     <string name="na101b">  تحصیل / تعلُقہ </string>
