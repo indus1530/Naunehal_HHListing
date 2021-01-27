@@ -115,7 +115,8 @@
                             <RadioButton
                                 android:id="@+id/hh04g"
                                 style="@style/radiobutton"
-                                android:text="@string/hh04g" />
+                                android:text="@string/hh04g"
+                                android:visibility="gone" />
 
                             <RadioButton
                                 android:id="@+id/hh0496"

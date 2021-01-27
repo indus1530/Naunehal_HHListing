@@ -25,6 +25,7 @@
     <string name="hh10"> کیا اس گھر میں 5 سال سے کم عمر کے بچے ہیں؟ </string>
     <string name="hh12"> کیا اس گھر میں 35 یا اس سے کم مہینے کے عمر کے بچے ہیں؟ </string>
     <string name="hh14"> کیا آپ اس گھر/محلے میں 6 ماہ سے زیادہ عرصہ سے رہائش پزیر ہیں؟ </string>
+    <string name="hh15">  معلومات نہیں مل سکی  (گھر بند تھا ،منع کر دیا) </string>
     <string name="isNewHH"> کیا اس گھر میں مذید کوئی خاندان رہائش پزیر ہے </string>
     <string name="delHH"> Delete this HH </string>
     <string name="tabNo">کیا یہ اس کلسٹر میں استعمال ہونے والا پہلا ٹیب ہے؟</string>

@@ -61,7 +61,17 @@ public class FamilyListingActivity extends AppCompatActivity {
                             String.format(Locale.ENGLISH, "%03d", Integer.valueOf(MainApp.hh07txt)));
         });
 
-        bi.delHH.setOnCheckedChangeListener((compoundButton, b) -> Clear.clearAllFields(bi.fldGrpSecB01, !b));
+        bi.hh15.setOnCheckedChangeListener((compoundButton, b) -> {
+            Clear.clearAllFields(bi.fldGrpSecB01, !b);
+            bi.delHH.setEnabled(!b);
+        });
+
+        bi.delHH.setOnCheckedChangeListener((compoundButton, b) -> {
+            Clear.clearAllFields(bi.fldGrpSecB01, !b);
+            bi.hh15.setEnabled(!b);
+        });
+
+        if (Integer.parseInt(MainApp.hh07txt) == 1) bi.delHH.setVisibility(View.GONE);
 
     }
 
@@ -97,6 +107,7 @@ public class FamilyListingActivity extends AppCompatActivity {
         lc.setHh12(bi.hh12a.isChecked() ? "1" : bi.hh12b.isChecked() ? "2" : "-1");
         lc.setHh13(bi.hh13.getText().toString().isEmpty() ? "-1" : bi.hh13.getText().toString());
         lc.setHh14(bi.hh14a.isChecked() ? "1" : bi.hh14b.isChecked() ? "2" : "-1");
+        lc.setHh15(bi.hh15.isChecked() ? "1" : "2");
 
         lc.setDelHH(bi.delHH.isChecked() ? "1" : "-1");
         lc.setIsNewHH(bi.isNewHH.isChecked() ? "1" : "2");
