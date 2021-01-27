@@ -113,9 +113,26 @@
                                 android:text="@string/hh04f" />
 
                             <RadioButton
+                                android:id="@+id/hh04g"
+                                style="@style/radiobutton"
+                                android:text="@string/hh04g" />
+
+                            <RadioButton
                                 android:id="@+id/hh0496"
                                 style="@style/radiobutton"
                                 android:text="@string/hh0496" />
+
+                            <EditText
+                                android:id="@+id/hh0496x"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/whiteOverlay"
+                                android:hint="@string/hh0496x"
+                                android:padding="10dp"
+                                android:tag="hh0496"
+                                android:text='@{hh0496.checked ? hh0496x.getText().toString() : ""}'
+                                android:textColor="@color/colorPrimary"
+                                android:visibility="@{hh0496.checked ? View.VISIBLE : View.GONE}" />
 
                             <RadioButton
                                 android:id="@+id/hh04h"

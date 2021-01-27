@@ -91,6 +91,10 @@ public class SetupActivity extends Activity {
                 } else {
                     bi.btnChangePSU.setText(R.string.change_enumeration_block);
                 }
+            } else if (bi.hh04g.isChecked()) {
+                Clear.clearAllFields(bi.fldGrpHH12);
+                bi.fldGrpHH12.setVisibility(View.GONE);
+                bi.btnNextStructure.setVisibility(View.VISIBLE);
             } else {
                 bi.fldGrpHH12.setVisibility(View.VISIBLE);
                 bi.btnChangePSU.setVisibility(View.GONE);
@@ -151,10 +155,12 @@ public class SetupActivity extends Activity {
                                         bi.hh04d.isChecked() ? "4" :
                                                 bi.hh04e.isChecked() ? "5" :
                                                         bi.hh04f.isChecked() ? "6" :
-                                                                bi.hh04h.isChecked() ? "8" :
-                                                                        bi.hh04i.isChecked() ? "9" :
-                                                                                bi.hh0496.isChecked() ? "96" :
-                                                                                        "-1");
+                                                                bi.hh04g.isChecked() ? "7" :
+                                                                        bi.hh04h.isChecked() ? "8" :
+                                                                                bi.hh04i.isChecked() ? "9" :
+                                                                                        bi.hh0496.isChecked() ? "96" :
+                                                                                                "-1");
+        lc.setHh04other(bi.hh0496x.getText().toString());
         lc.setUsername(MainApp.userEmail);
         lc.setHh05(bi.hh05.isChecked() ? "1" : "2");
         lc.setHh06(Objects.requireNonNull(bi.hh06.getText()).toString());

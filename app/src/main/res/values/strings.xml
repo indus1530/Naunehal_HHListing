@@ -10,9 +10,11 @@
     <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
     <string name="hh04e"> مرکز صحت </string>
     <string name="hh04f">  زیر تعمیر </string>
+    <string name="hh04g">  معلومات نہیں مل سکی  (بند تھا ،منع کر دیا) </string>
     <string name="hh04h"> عارظی  طور پر لسٹنگ بند کریں  </string>
     <string name="hh04i"> مزید عمارت نہیں (کلسٹر مکمل ہوگیا) </string>
     <string name="hh0496"> دیگر </string>
+    <string name="hh0496x"> وضاحت کریں </string>
     <string name="confirmcity"> کیا آپ اُوپر دیئے گئے شہر/گاوُں میں موجود ہیں؟ </string>
     <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
     <string name="hh06"> خاندان کی تعداد؟ </string>
