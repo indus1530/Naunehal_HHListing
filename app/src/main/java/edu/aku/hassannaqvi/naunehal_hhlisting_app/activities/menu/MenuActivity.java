@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.R;
-import edu.aku.hassannaqvi.naunehal_hhlisting_app.WifiDirect.WiFiDirectActivity;
+import edu.aku.hassannaqvi.naunehal_hhlisting_app.wifi_direct.WiFiDirectActivity;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.activities.sync.SyncActivity;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.DatabaseHelper;

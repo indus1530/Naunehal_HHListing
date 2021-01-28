@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.naunehal_hhlisting_app.WifiDirect;
+package edu.aku.hassannaqvi.naunehal_hhlisting_app.wifi_direct;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -31,7 +31,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.R;
-import edu.aku.hassannaqvi.naunehal_hhlisting_app.WifiDirect.DeviceListFragment.DeviceActionListener;
+import edu.aku.hassannaqvi.naunehal_hhlisting_app.wifi_direct.DeviceListFragment.DeviceActionListener;
 import edu.aku.hassannaqvi.naunehal_hhlisting_app.core.DatabaseHelper;
 
 /**

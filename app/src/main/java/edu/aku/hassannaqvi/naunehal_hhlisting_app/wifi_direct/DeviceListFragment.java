@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.naunehal_hhlisting_app.WifiDirect;
+package edu.aku.hassannaqvi.naunehal_hhlisting_app.wifi_direct;
 
 import android.app.ListFragment;
 import android.app.ProgressDialog;

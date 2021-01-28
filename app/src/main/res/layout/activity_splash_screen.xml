@@ -55,11 +55,10 @@
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="100dp"
-                android:src="@drawable/agakhannew02"
-                android:visibility="gone" />
+                android:src="@drawable/naunehal_linelisting" />
 
         </RelativeLayout>
 
