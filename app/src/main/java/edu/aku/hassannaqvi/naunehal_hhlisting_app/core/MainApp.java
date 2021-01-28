@@ -29,7 +29,6 @@ import edu.aku.hassannaqvi.naunehal_hhlisting_app.otherClasses.TypefaceUtil;
 
 public class MainApp extends Application {
 
-    // GPS Related Field Variables
 //    public static final String _IP = "http://f38158";// .TEST server
     public static final String _IP = "https://vcoe1.aku.edu";// .LIVE server
     public static final String _HOST_URL = MainApp._IP + "/naunehal/api/";

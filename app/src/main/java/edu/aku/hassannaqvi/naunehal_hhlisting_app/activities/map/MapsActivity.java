@@ -52,9 +52,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastKnownLocation;
     DatabaseHelper db;
     private GoogleMap mMap;
-    private GeoDataClient mGeoDataClient;
-    private PlaceDetectionClient mPlaceDetectionClient;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     private LatLng mDefaultLocation;
     private ArrayList<LatLng> clusterPoints;
     private ArrayList<LatLng> newClusterPoints;
@@ -77,25 +74,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapFragment.getMapAsync(this);
 
-
-        // Construct a GeoDataClient.
-        mGeoDataClient = Places.getGeoDataClient(this, null);
-
-        // Construct a PlaceDetectionClient.
-        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
-
-        // Construct a FusedLocationProviderClient.
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                MINIMUM_TIME_BETWEEN_UPDATES,
-                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new MyLocationListener()
-        );
-
-
         clusterPoints = new ArrayList<LatLng>();
         newClusterPoints = new ArrayList<LatLng>();
         ucPoints = new ArrayList<LatLng>();
@@ -114,27 +92,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (VerticesUCContract v : vcuc) {
             ucPoints.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
         }*/
-    }
-
-    protected void showCurrentLocation() {
-
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        if (location != null) {
-            String message = String.format(
-                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
-                    location.getLongitude(), location.getLatitude()
-            );
-            //Toast.makeText(getApplicationContext(), message,
-            //Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    public void showGPSCoordinates(View v) {
-        showCurrentLocation();
-
-
     }
 
     protected boolean isBetterLocation(Location location, Location currentBestLocation) {
@@ -233,7 +190,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polyUC.setGeodesic(true);*/
 
 
-        mMap.setMyLocationEnabled(true);
+//        mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), DEFAULT_ZOOM));
 
@@ -258,101 +215,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });*/
     }
 
-    private void updateCameraBearing(GoogleMap googleMap, float bearing) {
-        if (googleMap == null) return;
-        CameraPosition camPos = CameraPosition
-                .builder(
-                        googleMap.getCameraPosition() // current Camera
-                )
-                .bearing(bearing)
-                .build();
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos));
-    }
-
-    private class MyLocationListener implements LocationListener {
-
-        Polygon polySCluster = null;
-
-
-        public void onLocationChanged(Location location) {
-            mDefaultLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            updateCameraBearing(mMap, location.getBearing());
-
-            if (polySCluster == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
-                PolygonOptions rectSCluster = new PolygonOptions()
-                        .fillColor(getResources().getColor(R.color.colorAccentGAlpha))
-                        .strokeColor(Color.GREEN)
-                        .zIndex(2.0f);
-                rectSCluster.addAll(clusterPoints);
-
-
-// Get back the mutable Polyline
-                // Cluster Poly
-                polySCluster = mMap.addPolygon(rectSCluster);
-
-
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20));
-
-
-            } else if (polySCluster != null && !(PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false))) {
-
-                polySCluster.remove();
-                polySCluster = null;
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), DEFAULT_ZOOM));
-
-            }
-
-
-            SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-
-            String dt = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(sharedPref.getString("Time", "0"))).toString();
-
-            Location bestLocation = new Location("storedProvider");
-            bestLocation.setAccuracy(Float.parseFloat(sharedPref.getString("Accuracy", "0")));
-            bestLocation.setTime(Long.parseLong(sharedPref.getString(dt, "0")));
-//                bestLocation.setTime(Long.parseLong(dt));
-            bestLocation.setLatitude(Float.parseFloat(sharedPref.getString("Latitude", "0")));
-            bestLocation.setLongitude(Float.parseFloat(sharedPref.getString("Longitude", "0")));
-
-            if (isBetterLocation(location, bestLocation)) {
-                editor.putString("Longitude", String.valueOf(location.getLongitude()));
-                editor.putString("Latitude", String.valueOf(location.getLatitude()));
-                editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
-                editor.putString("Time", String.valueOf(location.getTime()));
-//                    editor.putString("Time", DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString());
-
-//                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
-//                Toast.makeText(getApplicationContext(),
-//                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
-//                                " LNG: " + String.valueOf(location.getLatitude()) +
-//                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
-//                                " Time: " + date,
-//                        Toast.LENGTH_SHORT).show();
-
-                editor.apply();
-            }
-
-
-            Map<String, ?> allEntries = sharedPref.getAll();
-            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                Log.d("Map", entry.getKey() + ": " + entry.getValue().toString());
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    }
 }

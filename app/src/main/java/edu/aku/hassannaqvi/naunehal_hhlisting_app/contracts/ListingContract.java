@@ -41,11 +41,6 @@ public class ListingContract {
     private String isNewHH;
     private String counter;
     private String DeviceID;
-    private String GPSLat;
-    private String GPSLng;
-    private String GPSTime;
-    private String GPSAcc;
-    private String GPSAlt;
     private String AppVer;
     private String tagId;
     private String username;
@@ -262,38 +257,6 @@ public class ListingContract {
         DeviceID = deviceID;
     }
 
-    public String getGPSLat() {
-        return GPSLat;
-    }
-
-    public void setGPSLat(String GPSLat) {
-        this.GPSLat = GPSLat;
-    }
-
-    public String getGPSLng() {
-        return GPSLng;
-    }
-
-    public void setGPSLng(String GPSLng) {
-        this.GPSLng = GPSLng;
-    }
-
-    public String getGPSTime() {
-        return GPSTime;
-    }
-
-    public void setGPSTime(String GPSTime) {
-        this.GPSTime = GPSTime;
-    }
-
-    public String getGPSAcc() {
-        return GPSAcc;
-    }
-
-    public void setGPSAcc(String GPSAcc) {
-        this.GPSAcc = GPSAcc;
-    }
-
     public String getAppVer() {
         return AppVer;
     }
@@ -316,14 +279,6 @@ public class ListingContract {
 
     public void setTagId(String tagId) {
         this.tagId = tagId;
-    }
-
-    public String getGPSAlt() {
-        return GPSAlt;
-    }
-
-    public void setGPSAlt(String GPSAlt) {
-        this.GPSAlt = GPSAlt;
     }
 
     public String getTabNo() {
@@ -397,11 +352,6 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_TABNO, this.tabNo);
         json.put(ListingEntry.COLUMN_ADDRESS, this.hhadd);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
-        json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
-        json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
-        json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
-        json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
-        json.put(ListingEntry.COLUMN_NAME_GPSAltitude, this.GPSAlt);
         json.put(ListingEntry.COLUMN_APPVER, this.AppVer);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
@@ -442,11 +392,6 @@ public class ListingContract {
         lc.setTabNo(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_TABNO))));
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ADDRESS))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
-        lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
-        lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
-        lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
-        lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
-        lc.setGPSAlt(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAltitude))));
         lc.setAppVer(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_APPVER))));
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
@@ -491,11 +436,6 @@ public class ListingContract {
         public static final String COLUMN_ISNEWHH = "isnewhh";
         public static final String COLUMN_COUNTER = "counter";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
-        public static final String COLUMN_NAME_GPSLat = "gpslat";
-        public static final String COLUMN_NAME_GPSLng = "gpslng";
-        public static final String COLUMN_NAME_GPSTime = "gpstime";
-        public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
-        public static final String COLUMN_NAME_GPSAltitude = "gpsalt";
         public static final String COLUMN_APPVER = "appver";
         public static final String COLUMN_TAGID = "tagId";
         public static final String COLUMN_SYNCED = "synced";

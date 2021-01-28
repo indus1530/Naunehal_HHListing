@@ -108,12 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_USERNAME + " TEXT, " +
             ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
             ListingEntry.COLUMN_TAGID + " TEXT, " +
-            ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
-            ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
-            ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
             ListingEntry.COLUMN_APPVER + " TEXT, " +
-            ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
-            ListingEntry.COLUMN_NAME_GPSAltitude + " TEXT, " +
             ListingEntry.COLUMN_SYNCED + " TEXT, " +
             ListingEntry.COLUMN_SYNCED_DATE + " TEXT );";
 
@@ -283,11 +278,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_COUNTER, lc.getCounter());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
-        values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
-        values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
-        values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
-        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
-        values.put(ListingEntry.COLUMN_NAME_GPSAltitude, lc.getGPSAlt());
         values.put(ListingEntry.COLUMN_APPVER, lc.getAppVer());
         values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
@@ -481,11 +471,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
-                ListingEntry.COLUMN_NAME_GPSLat,
-                ListingEntry.COLUMN_NAME_GPSLng,
-                ListingEntry.COLUMN_NAME_GPSTime,
-                ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_GPSAltitude,
                 ListingEntry.COLUMN_APPVER,
                 "COUNT(*) as RESCOUNTER, " +
                         "COUNT(case " + ListingEntry.COLUMN_NAME_HH10 + " when '1' then 1 else null end) as CHILDCOUNTER," +
